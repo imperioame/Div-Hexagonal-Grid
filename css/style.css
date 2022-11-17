@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#main h1 {
+  font-size: 3em;
+  position: fixed;
+  top: 3rem;
+  width: 100vw;
+  text-align: center;
+  text-decoration: underline;
+}
+
+#board {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(253, 249, 213);
+}
+
+.hex-clip {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(20, 117, 182);
+  position: fixed;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+.hex-clip:hover {
+  background-color: rgb(11, 98, 156);
+  transition: 1s;
+}
+
+#board > * {
+  -webkit-clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+}/*# sourceMappingURL=style.css.map */
