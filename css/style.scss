@@ -1,0 +1,56 @@
+//Change size to set RELATIVE appearence
+//It doesnt affect position, just it's appearence. You'd want to modify js/build.js to correct positioning
+$hex_size: 100px;
+
+//Colors
+$color: rgb(20, 117, 182);
+$border_color: rgb(255, 242, 169);
+$hover_color: rgb(11, 98, 156);
+
+
+// Canvas setings
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+#main h1{
+    font-size: 3em;
+    position: fixed;
+    top: 3rem;
+    width: 100vw;
+    text-align: center;
+    text-decoration: underline;
+}
+
+#board {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(253, 249, 213);
+}
+
+
+// Hexagon settings
+.hex-clip {
+    width: $hex_size;
+    height: $hex_size;
+    background-color: $color;
+    position: fixed;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $hover_color;
+        transition: 1s;
+    }
+}
+
+// Clipping mask to make the appearence of an hexagon
+#board>* {
+    -webkit-clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+    clip-path: polygon(50% 0, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+}
