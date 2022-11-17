@@ -1,37 +1,57 @@
-//Definitions
-const BOARD = document.getElementById('board');
-let w = Math.min(window.innerWidth, window.innerHeight);
-const RAD = w / 5;
-const TAU = Math.PI * 2;
-
-
-const LAYERS = 2;
-const HEXHEIGHT = 60;
-const HEXWIDTH = 104;
-
-
-
 function createHex(center_X, center_Y, id) {
-    //Create a DOM element with fixed position
+    //Create DOM hex with fixed position.
     let center_X_rounded = Math.round(center_X * 100) / 100;
     let center_Y_rounded = Math.round(center_Y * 100) / 100;
 
-    let hex = document.createElement('div');
-    hex.className = "hex-clip";
-    hex.id = id;
-    hex.dataset.xPosition = center_X_rounded;
-    hex.dataset.yPosition = center_Y_rounded;
-    hex.setAttribute('style', `top: ${window.innerHeight/2 - (HEXHEIGHT/2) + center_Y}px; left: ${window.innerWidth/2 - (HEXWIDTH/2) + center_X}px`);
-    hex.innerHTML = id;
+    // First, it checks if there's another hex currently occupying the position
+    if (checkEmptyPosition(center_X_rounded, center_Y_rounded)) {
+        // There is no overlapping hex. Proceede to create one
+        let hex = document.createElement('div');
+        hex.className = "hex-clip";
+        hex.id = id;
+        hex.dataset.xPosition = center_X_rounded;
+        hex.dataset.yPosition = center_Y_rounded;
+        hex.setAttribute('style', `top: ${window.innerHeight/2 - (HEXHEIGHT/2) + center_Y}px; left: ${window.innerWidth/2 - (HEXWIDTH/2) + center_X}px`);
+        hex.innerHTML = id;
 
-    //Use this to debbug positioning
-    //hex.innerHTML = `xPos${center_X_rounded}-yPos${center_Y_rounded}`;
+        // Use this to debugg positioning
+        //hex.innerHTML = `xPos${center_X_rounded}-yPos${center_Y_rounded}`;
 
-    BOARD.appendChild(hex);
+        //Load the cell in memory.
+        saveToMemory(center_X_rounded, center_Y_rounded);
+
+        BOARD.appendChild(hex);
+    }
+}
+
+
+function saveToMemory(position_X, position_Y) {
+    //Create an object, asign position and save to array
+
+    let cell = new Cell();
+    cell.setPosX = position_X;
+    cell.setPosY = position_Y;
+
+    CELLARRAY.push(cell);
+
+}
+
+function checkEmptyPosition(position_X, position_Y) {
+    //Check if position is already occupied. If so, reutrns false.
+
+    let position_empty = true;
+    for (let i = 0; i < CELLARRAY.length; i++) {
+        if (CELLARRAY[i].getPosX == position_X && CELLARRAY[i].getPosY == position_Y) {
+            position_empty = false;
+            return position_empty;
+        }
+    }
+    return position_empty;
 }
 
 
 let hexcount = 0;
+
 function recursiveHexagon(center_X, center_Y, depth, r) {
     //Create recursively all hexagons
     if (depth == 0) {
@@ -62,6 +82,5 @@ function initialize(max_layers) {
 
 window.onload = function () {
     console.log('initializing...');
-    
     initialize(LAYERS);
 };
