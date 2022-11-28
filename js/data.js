@@ -1,15 +1,13 @@
 //Data structure and definitions
 const BOARD = document.getElementById('board');
-let w = Math.min(window.innerWidth, window.innerHeight);
-const RAD = w / 5;
 const TAU = Math.PI * 2;
 
 // Change this value to increment honeycomb size
 const LAYERS = 2;
 // Hex Size. Used for positioning. Should be slightly higher than the one setted in style.scss to separate one from the other
-const HEXWIDTH = 104;
-const HEXHEIGHT = 60;
-
+const HEXWIDTH = window.innerWidth * 0.05;
+const HEXHEIGHT = HEXWIDTH;
+const RAD = HEXWIDTH * 2 ;
 
 const CELLARRAY = [];
 

@@ -20,8 +20,8 @@
 }
 
 .hex-clip {
-  width: 100px;
-  height: 100px;
+  width: 5vw;
+  height: 5vw;
   background-color: rgb(20, 117, 182);
   position: fixed;
   text-align: center;
