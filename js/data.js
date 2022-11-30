@@ -5,11 +5,15 @@ const TAU = Math.PI * 2;
 // Change this value to increment honeycomb size
 const LAYERS = 2;
 // Hex Size. Used for positioning. Should be slightly higher than the one setted in style.scss to separate one from the other
-const HEXWIDTH = window.innerWidth * 0.05;
-const HEXHEIGHT = HEXWIDTH;
-const RAD = HEXWIDTH * 2 ;
+const HEX_WIDTH = window.innerWidth * 0.05;
+const HEX_HEIGHT = HEX_WIDTH;
+const RAD = HEX_WIDTH * 2;
 
-const CELLARRAY = [];
+//Modify this to set global displacement
+const CENTER_X = window.innerWidth / 2 - (HEX_WIDTH / 2);
+const CENTER_Y = window.innerHeight / 2 - (HEX_HEIGHT / 2);
+
+const CELL_ARRAY = [];
 
 class Cell {
     constructor() {
