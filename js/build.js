@@ -11,7 +11,8 @@ function createHex(center_X, center_Y, id) {
         hex.id = id;
         hex.dataset.xPosition = center_X_rounded;
         hex.dataset.yPosition = center_Y_rounded;
-        hex.setAttribute('style', `top: ${window.innerHeight/2 - (HEXHEIGHT/2) + center_Y}px; left: ${window.innerWidth/2 - (HEXWIDTH/2) + center_X}px`);
+        hex.style.top = `${center_Y}px`;
+        hex.style.left = `${center_X}px`;
         hex.innerHTML = id;
 
         // Use this to debugg positioning
@@ -19,7 +20,6 @@ function createHex(center_X, center_Y, id) {
 
         //Load the cell in memory.
         saveToMemory(center_X_rounded, center_Y_rounded);
-
         BOARD.appendChild(hex);
     }
 }
@@ -27,26 +27,21 @@ function createHex(center_X, center_Y, id) {
 
 function saveToMemory(position_X, position_Y) {
     //Create an object, asign position and save to array
-
-    let cell = new Cell();
-    cell.setPosX = position_X;
-    cell.setPosY = position_Y;
-
-    CELLARRAY.push(cell);
-
+    let cell = new Cell(position_X, position_Y);
+    CELL_ARRAY.push(cell);
 }
 
 function checkEmptyPosition(position_X, position_Y) {
-    //Check if position is already occupied. If so, reutrns false.
+    //Checks if position in board is occupied, if so, reutns false
 
-    let position_empty = true;
-    for (let i = 0; i < CELLARRAY.length; i++) {
-        if (CELLARRAY[i].getPosX == position_X && CELLARRAY[i].getPosY == position_Y) {
-            position_empty = false;
-            return position_empty;
-        }
-    }
-    return position_empty;
+    return !CELL_ARRAY.some((cell) => {
+        // checks surroundings wit +/- 0.01
+
+        let x_pos_is_in_range = cell.getPosX <= position_X + 0.01 && cell.getPosX >= position_X - 0.01
+        let y_pos_is_in_range = cell.getPosY <= position_Y + 0.01 && cell.getPosY >= position_Y - 0.01
+
+        return x_pos_is_in_range && y_pos_is_in_range
+    });
 }
 
 
@@ -73,11 +68,7 @@ function recursiveHexagon(center_X, center_Y, depth, r) {
 
 function initialize(max_layers) {
     //Initialice honeycomb
-
-    //Modify this to set global displacement
-    let center_X = 0;
-    let center_Y = 0;
-    recursiveHexagon(center_X, center_Y, max_layers, RAD);
+    recursiveHexagon(CENTER_X, CENTER_Y, max_layers, RAD);
 }
 
 window.onload = function () {
